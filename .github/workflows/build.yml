@@ -19,7 +19,7 @@ jobs:
 
       - name: Override wine submodule URL
         run: |
-          git config submodule.wine.url https://github.com/ValveSoftware/wine.git
+          git config submodule.wine.url https://github.com/Etaash-mathamsetty/wine-valve.git
 
       - name: Init and update submodules
         run: git submodule update --init --recursive
