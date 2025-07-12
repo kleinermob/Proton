@@ -2,27 +2,28 @@
 name: Build Proton
 
 on:
-  push: {}
-  pull_request: {}
-  workflow_dispatch:
+  push: {}            
+  pull_request: {}    
+  workflow_dispatch:  
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code (no submodules)
+      - name: Checkout code (shallow, no submodules)
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-          submodules: false
+          fetch-depth: 1        # only the latest commit
+          submodules: false     # skip submodules for now
 
       - name: Override wine submodule URL
         run: |
           git config submodule.wine.url https://github.com/Etaash-mathamsetty/wine-valve.git
 
-      - name: Init and update submodules
-        run: git submodule update --init --recursive
+      - name: Init & shallow‐clone submodules
+        run: |
+          git submodule update --init --recursive --depth 1
 
       - name: Install host dependencies
         run: |
